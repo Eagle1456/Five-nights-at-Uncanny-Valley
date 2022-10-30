@@ -22,20 +22,24 @@ public class EnemyBehavior : MonoBehaviour
     {
         if(currentSpeed != 0)
         {
-            rb.transform.Translate(-transform.forward * currentSpeed * Time.deltaTime);
+            rb.transform.position += rb.transform.forward * currentSpeed * Time.deltaTime;
             //Debug.Log(currentSpeed);
         }
 
         //move if player is looking away
-        if (!(Vector3.Dot(player.transform.forward, transform.position - player.transform.position) > 1 - fov) && currentSpeed <= 0)
+        if (!(Vector3.Dot(player.transform.forward, transform.position - player.transform.position) > 1 - fov))
         {
-            rb.transform.LookAt(player.transform);
-            StopCoroutine("MovementDeccelerate");
-            StartCoroutine("MovementAccelerate");
+            Vector3 target = player.GetComponent<Rigidbody>().transform.position;
+            rb.transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
+            if(currentSpeed <= 0)
+            {
+                StopCoroutine("MovementDeccelerate");
+                StartCoroutine("MovementAccelerate");
+            }
         }
         else if(Vector3.Dot(player.transform.forward, transform.position) > 1 - fov && currentSpeed >= speed)
         {
-            StopCoroutine("MovementAccelerate");
+            //StopCoroutine("MovementAccelerate");
             StartCoroutine("MovementDeccelerate");
         }
     }
