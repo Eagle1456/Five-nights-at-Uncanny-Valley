@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("hmm?");
         switch(collision.gameObject.tag)
         {
             case "Enemy":
@@ -73,7 +72,6 @@ public class PlayerController : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("what");
                 break;
         }
     }
