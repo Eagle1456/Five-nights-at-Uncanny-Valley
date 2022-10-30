@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backslash))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Vector3 vec_in = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         vec_in = rb.transform.TransformDirection(vec_in);
         rb.transform.position += vec_in * playerSpeed * Time.deltaTime;
