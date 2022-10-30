@@ -55,15 +55,25 @@ public class PlayerController : MonoBehaviour
         hasMelee = false;
     }
 
+    void PlayerDeath()
+    {
+        rb.constraints = RigidbodyConstraints.None;
+        rb.isKinematic = false;
+        rb.AddForce(Vector3.down);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("hmm?");
         switch(collision.gameObject.tag)
         {
             case "Enemy":
                 //guess i'll die
+                PlayerDeath();
                 break;
 
             default:
+                Debug.Log("what");
                 break;
         }
     }
